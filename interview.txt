@@ -1,0 +1,90 @@
+🎤 If interviewer asks: “How did you set up the database?”
+
+You can say:
+
+“The application is built using Next.js with TypeScript, and I used PostgreSQL as the relational database. I used Drizzle ORM as the database layer, so the application doesn't directly write raw SQL for every operation.
+
+For local development, instead of installing PostgreSQL directly on Windows, I containerized PostgreSQL using Docker. The PostgreSQL container exposes port 5432, and the Next.js application connects to it through a DATABASE_URL environment variable.
+
+I created a separate database for this application, called app_db, while keeping it isolated from the database used by my other project on the same PostgreSQL server.
+
+The database schema is defined in the application's TypeScript code, and I use Drizzle Kit to push that schema into PostgreSQL. This gives me a consistent way to manage the database structure across development environments.”
+
+That's a much better interview answer.
+
+🧠 If they ask: “Why PostgreSQL?”
+
+Say:
+
+“The application has structured relational data such as questions, users or attempts, and their relationships. PostgreSQL gives me strong relational constraints, transactions, indexing, and reliable querying, which makes it suitable for this type of examination platform.”
+
+Don't say:
+
+❌ “Because the project already had PostgreSQL.”
+
+That's technically true but doesn't demonstrate engineering judgment.
+
+🐳 “Why Docker?”
+
+You can say:
+
+“I used Docker to make the database environment reproducible. Instead of requiring every developer to manually install and configure PostgreSQL, I can run the same PostgreSQL version inside a container with the required configuration.”
+
+That's a solid DevOps answer.
+
+🧩 “Why Drizzle ORM?”
+
+Say:
+
+“Drizzle provides a type-safe database layer that integrates naturally with TypeScript. I can define the schema in TypeScript and use Drizzle to interact with PostgreSQL while maintaining compile-time type safety.”
+
+🔥 The architecture answer
+
+If they ask:
+
+“Explain how your application talks to the database.”
+
+Draw this:
+
+             User
+               │
+               ▼
+        ┌───────────────┐
+        │   Next.js     │
+        │   React UI    │
+        └───────┬───────┘
+                │
+                ▼
+        ┌───────────────┐
+        │ API / Server  │
+        │    Logic      │
+        └───────┬───────┘
+                │
+                ▼
+        ┌───────────────┐
+        │ Drizzle ORM   │
+        └───────┬───────┘
+                │
+          DATABASE_URL
+                │
+                ▼
+        ┌───────────────┐
+        │  PostgreSQL   │
+        │   Docker      │
+        └───────────────┘
+
+And say:
+
+“The browser communicates with the Next.js application. Server-side logic uses Drizzle ORM to interact with PostgreSQL. The database credentials are stored in environment variables rather than being exposed to the frontend.”
+
+That last sentence is important in interviews because it shows you understand security.
+
+One more thing 👀
+
+Since this is your GATE CSE Exam Platform, don't just memorize these lines. If the interviewer asks:
+
+“Why did you choose a relational database instead of MongoDB?”
+
+you should be able to answer that technically.
+
+The interesting part is your actual schema — questions, attempts, relationships, constraints, indexing, transactions, etc. We can go through that next and I'll turn your actual project into interview questions + strong answers, rather than generic textbook answers.
